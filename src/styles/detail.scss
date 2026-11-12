@@ -1,0 +1,156 @@
+/* Product detail */
+.detail-gallery>img {
+  width:100%;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  background:#ede6dd
+}
+
+.detail-gallery>p {
+  font-size:12px;
+  color:#9b8a7b
+}
+
+.detail-copy {
+  padding-top:15px
+}
+
+.detail-category {
+  color:#8e7b6b
+}
+
+.detail-base-price {
+  margin:24px 0!important
+}
+
+.detail-spec {
+  border-top:1px solid #e2d8cb;
+  border-bottom:1px solid #e2d8cb;
+  margin:24px 0;
+  padding:15px 0
+}
+
+.detail-spec>div {
+  display:grid;
+  grid-template-columns:110px 1fr;
+  gap:12px;
+  padding:10px 0;
+  font-size:13px
+}
+
+.detail-spec span {
+  color:#938274
+}
+
+.detail-spec b {
+  font-weight:500
+}
+
+.detail-option {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  font-size:13px;
+  margin:13px 0
+}
+
+.detail-option select {
+  width:70%;
+  background:#fffdfa;
+  border:1px solid #ded2c5;
+  padding:12px;
+  color:#594537
+}
+
+.detail-quantity {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 0;
+  font-size:13px
+}
+
+.detail-quantity>div {
+  display:flex;
+  align-items:center;
+  gap:20px
+}
+
+.detail-quantity button {
+  border:1px solid #ddd1c4;
+  width:33px;
+  height:33px
+}
+
+.detail-price-total {
+  border-top:1px solid #ded2c5;
+  padding:23px 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between
+}
+
+.detail-price-total strong {
+  font-size:24px
+}
+
+.detail-actions {
+  display:grid;
+  grid-template-columns:1fr 1fr 52px;
+  gap:9px
+}
+
+.detail-actions button {
+  padding:15px 8px
+}
+
+.detail-actions .detail-cart {
+  background:#f8f5f0;
+  color:#49382d;
+  border:1px solid #594132;
+  flex:auto
+}
+
+.detail-actions .detail-buy {
+  background:#594132;
+  color:white
+}
+
+.detail-actions .detail-favorite {
+  font-size:22px
+}
+
+.detail-related {
+  margin-top:110px
+}
+
+.detail-related .product-grid {
+  margin-top:25px
+}
+
+@media(max-width:800px) {
+  .detail-related {
+    margin-top:65px
+  }
+
+  .detail-layout {
+    gap:25px
+  }
+
+}
+
+@media(max-width:420px) {
+  .detail-actions {
+    grid-template-columns:1fr 1fr 42px
+  }
+
+  .detail-actions button {
+    font-size:12px
+  }
+
+  .detail-option select {
+    width:65%
+  }
+
+}

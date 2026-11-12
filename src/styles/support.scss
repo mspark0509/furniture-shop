@@ -1,0 +1,185 @@
+/* V13 customer support page */
+.support-page {
+  padding-top:64px;
+  padding-bottom:110px
+}
+
+.support-heading {
+  padding:22px 0 52px;
+  border-bottom:1px solid #ded3c5
+}
+
+.support-heading span,.support-section-title small {
+  font-size:11px;
+  letter-spacing:.16em;
+  color:#9a826b
+}
+
+.support-heading h1 {
+  font-size:clamp(32px,4vw,54px);
+  margin:14px 0
+}
+
+.support-heading p {
+  color:#827262
+}
+
+.support-layout {
+  display:grid;
+  grid-template-columns:220px minmax(0,1fr);
+  gap:65px;
+  padding-top:46px
+}
+
+.support-sidebar {
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  gap:7px
+}
+
+.support-sidebar button {
+  display:flex;
+  justify-content:space-between;
+  text-align:left;
+  padding:15px 17px;
+  border:0;
+  border-radius:9px;
+  background:transparent;
+  color:#69594c;
+  cursor:pointer
+}
+
+.support-sidebar button.selected,.support-sidebar button:hover {
+  background:#eae0d2;
+  color:#503927
+}
+
+.support-content {
+  min-width:0
+}
+
+.support-section-title {
+  padding-bottom:26px;
+  border-bottom:1px solid #d8cdbf
+}
+
+.support-section-title h2 {
+  font-size:28px;
+  margin:8px 0 0
+}
+
+.support-faq-item {
+  border-bottom:1px solid #e5dbd0
+}
+
+.support-faq-item>button {
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  width:100%;
+  padding:22px 4px;
+  border:0;
+  background:transparent;
+  text-align:left;
+  font-size:15px;
+  cursor:pointer
+}
+
+.support-faq-item>p {
+  padding:0 8px 25px;
+  line-height:1.85;
+  color:#756658
+}
+
+.support-copy {
+  padding:28px 0;
+  line-height:1.9;
+  color:#65574b
+}
+
+.support-copy h3 {
+  font-size:21px;
+  color:#493629
+}
+
+.support-copy ol {
+  padding-left:23px
+}
+
+.support-note {
+  background:#f3ede5;
+  padding:22px;
+  border-radius:12px;
+  margin-top:22px
+}
+
+.support-note button {
+  display:block;
+  margin-top:10px;
+  text-decoration:underline
+}
+
+.support-form {
+  display:grid;
+  gap:17px;
+  margin-top:25px
+}
+
+.support-form label {
+  display:grid;
+  gap:7px;
+  font-size:13px
+}
+
+.support-form input,.support-form textarea {
+  width:100%;
+  box-sizing:border-box;
+  padding:13px;
+  border:1px solid #cdbdad;
+  border-radius:7px;
+  background:#fffdfa;
+  color:#403126;
+  font:inherit
+}
+
+.support-primary {
+  display:inline-block;
+  padding:14px 24px;
+  border:0;
+  border-radius:7px;
+  background:#594132;
+  color:white;
+  cursor:pointer;
+  margin-top:12px
+}
+
+.support-form .support-primary {
+  justify-self:start
+}
+
+@media(max-width:800px) {
+  .support-layout {
+    grid-template-columns:1fr;
+    gap:20px
+  }
+
+  .support-sidebar {
+    flex-direction:row;
+    overflow-x:auto;
+    white-space:nowrap
+  }
+
+  .support-sidebar button {
+    flex:none
+  }
+
+  .support-page {
+    padding-top:36px
+  }
+
+  .support-heading {
+    padding-bottom:25px
+  }
+
+}

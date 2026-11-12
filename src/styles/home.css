@@ -1,0 +1,25 @@
+/* Homepage enhancements: preserve the original rich sections */
+.intro {
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(125deg,#eee4d5 0%,#f8f4ec 65%,#e8dac7 100%)
+}
+
+.intro:before {
+  content:"INDEBOX";
+  position:absolute;
+  left:-3%;
+  bottom:-35px;
+  font:700 clamp(100px,19vw,280px)/1 Georgia,serif;
+  color:rgba(104,76,53,.045);
+  pointer-events:none;
+  letter-spacing:-.08em
+}
+
+.intro>* {
+  position:relative
+}
+
+.home-section {
+  background:#faf8f3
+}
