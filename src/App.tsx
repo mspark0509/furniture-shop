@@ -46,6 +46,7 @@ export default function App() {
         };
         fromCart: boolean;
     } | null>(null);
+    const [selectedCartIds, setSelectedCartIds] = useState<number[]>(() => Object.keys(cart).filter(id => cart[Number(id)] > 0).map(Number));
     const [user, setUser] = useState<User | null>(null);
     const [authReady, setAuthReady] = useState(false);
     const [orders, setOrders] = useState<DemoOrder[]>(() => stored('indebox:demo-orders', []));
@@ -56,7 +57,7 @@ export default function App() {
     const navigate = (to: string) => { history.pushState(null, '', to); setUrl(to); window.scrollTo(0, 0); };
     const notify = (message: string) => setToast({ message, key: Date.now() });
     const toggleFav = (id: number) => { const wasFav = favs.includes(id); setFavs(a => wasFav ? a.filter(n => n !== id) : [...a, id]); notify(wasFav ? '찜하기가 해제되었습니다' : '찜하기가 완료되었습니다'); };
-    const addCart = (id: number) => { setCart(a => ({ ...a, [id]: (a[id] || 0) + 1 })); notify('장바구니에 담겼습니다'); };
+    const addCart = (id: number) => { setCart(a => ({ ...a, [id]: (a[id] || 0) + 1 })); setSelectedCartIds(ids => ids.includes(id) ? ids : [...ids, id]); notify('장바구니에 담겼습니다'); };
     const change = (id: number, q: number) => setCart(a => {
         const n = { ...a };
         if (q <= 0)
@@ -66,9 +67,10 @@ export default function App() {
         return n;
     });
     const checkout = () => {
-        if (!Object.values(cart).some(q => q > 0))
+        const selectedItems = Object.fromEntries(Object.entries(cart).filter(([id, q]) => q > 0 && selectedCartIds.includes(Number(id)))) as Record<number, number>;
+        if (!Object.keys(selectedItems).length)
             return;
-        setPending({ items: { ...cart }, options: null, fromCart: true });
+        setPending({ items: selectedItems, options: null, fromCart: true });
         navigate('/checkout');
     };
     const buyNow = (id: number, quantity: number, options: {
@@ -83,8 +85,18 @@ export default function App() {
             const order: DemoOrder = { id: String(Date.now()), createdAt: new Date().toLocaleDateString('ko-KR'), items: { ...pending.items }, status: '구매완료' };
             setOrders((prev) => { const next = [order, ...prev]; localStorage.setItem('indebox:demo-orders', JSON.stringify(next)); return next; });
         }
-        if (pending.fromCart)
-            setCart({});
+        if (pending.fromCart) {
+            setCart(current => {
+                const next = { ...current };
+                Object.entries(pending.items).forEach(([id, purchased]) => {
+                    const remaining = (next[Number(id)] || 0) - purchased;
+                    if (remaining > 0) next[Number(id)] = remaining;
+                    else delete next[Number(id)];
+                });
+                return next;
+            });
+            setSelectedCartIds(ids => ids.filter(id => !Object.prototype.hasOwnProperty.call(pending.items, id)));
+        }
         setPending(null);
         navigate('/order-complete');
     };
@@ -99,7 +111,7 @@ export default function App() {
     else if (parts[0] === 'product')
         content = <DetailPage id={Number(parts[1])} buyNow={buyNow} {...props}/>;
     else if (parts[0] === 'cart')
-        content = <CartPage cart={cart} remove={id => change(id, 0)} change={change} navigate={navigate} checkout={checkout}/>;
+        content = <CartPage cart={cart} remove={id => { change(id, 0); setSelectedCartIds(ids => ids.filter(n => n !== id)); }} change={change} navigate={navigate} checkout={checkout} selectedIds={selectedCartIds} setSelectedIds={setSelectedCartIds}/>;
     else if (parts[0] === 'checkout')
         content = <CheckoutPage items={pending?.items || {}} options={pending?.options} navigate={navigate} complete={complete}/>;
     else if (parts[0] === 'order-complete')
